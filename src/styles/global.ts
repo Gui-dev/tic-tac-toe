@@ -13,5 +13,6 @@ export const GlobalStyle = createGlobalStyle`
     justify-content: center;
     min-height: 100vh;
     min-width: 100vw;
+    background-color: #222;
   }
 `
