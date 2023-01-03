@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 import { Container } from "./styles/style"
 import { GlobalStyle } from "./styles/global"
@@ -21,6 +21,11 @@ function App () {
   ]
   const [gameData, setGameData] = useState([0, 0, 0, 0, 0, 0, 0, 0, 0])
   const [play, setPlay] = useState(1)
+  const [playWinning, setPlayWinning] = useState(null)
+
+  useEffect(() => {
+    checkWinner()
+  }, [gameData])
 
   const handleClickOnBoard = (indexValue: number) => {
     if (gameData[indexValue] !== 0) return
@@ -30,6 +35,27 @@ function App () {
       return newGameData
     })
     setPlay(prev => prev === 1 ? 2 : 1)
+  }
+
+  const checkWinner = async () => {
+    let winner = null
+    for (let values of winningCombinations) {
+      if (
+        gameData[values[0]] === 1 &&
+        gameData[values[1]] === 1 &&
+        gameData[values[2]] === 1
+      ) {
+        winner = 'play 1 venceu'
+      }
+
+      if (
+        gameData[values[0]] === 2 &&
+        gameData[values[1]] === 2 &&
+        gameData[values[2]] === 2
+      ) {
+        winner = 'play 2 venceu'
+      }
+    }
   }
 
   return (
